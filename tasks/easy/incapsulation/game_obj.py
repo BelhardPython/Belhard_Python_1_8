@@ -8,3 +8,39 @@
 Координаты должны быть доступны для чтения (сделать property), а их изменение
 должно происходить в методе move(delta_x, delta_y). (изменение - это +=)
 """
+
+
+class GameObject:
+    __x: int
+    __y: int
+
+    def __init__(self, x, y):
+        self.__x = x
+        self.__y = y
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, value):
+        if isinstance(value, int):
+            self.__x = value
+        else:
+            raise ValueError
+
+
+    @property
+    def y(self):
+        return self.__y
+
+    @y.setter
+    def y(self, value):
+        if isinstance(value, int):
+            self.__y = value
+        else:
+            raise ValueError
+
+    def move(self, delta_x, delta_y):
+        self.__x += delta_x
+        self.__y += delta_y
