@@ -20,3 +20,15 @@ import time
 # start_time = time.time()
 # end_time = time.time()
 # difference = e - s
+
+
+import time
+
+
+class class_benchmark:
+    start_time = time.time()
+    end_time = time.time()
+    difference = end_time - start_time
+
+    def class_benchmark(cls, *args, **kwargs):
+        print(f'Выполняем {func.__name__} с args: {args} и kwargs: {kwargs}\nВремя начала: {start_time}')
