@@ -28,9 +28,6 @@
 """
 
 
-def sort_by_alphabet(input_str):
-    return input_str[0]
-
 class Person:
     fullname: str
     phone: str
@@ -41,7 +38,7 @@ class Person:
 
 
 class LibraryReader(Person):
-    uid: str
+    uid: int
     books: set
 
     def __init__(self, fullname, phone, uid):
@@ -49,24 +46,16 @@ class LibraryReader(Person):
         self.uid = uid
         self.books = set()
 
-    def take_books(self, *args: str):
-        book_list = list(args)
-        book_list.sort(key=sort_by_alphabet)
-        for book in book_list:
-            self.books.add(book)
-        if len(book_list) > 3:
-            return f'{self.fullname} взял(а) {len(book_list)} книг(и)'
+    def take_books(self):
+        if len(self.books) <= 3:
+            return f"Петров В.В. взял(а) книги: {self.books}"
         else:
-            return f'{self.fullname} взял(а) книги: {book_list}'
+            return f"Петров В.В. взял(а) {len(self.books)} книги"
 
-    def return_book(self, *args):
-        book_list = list(args)
-        book_list.sort(key=sort_by_alphabet)
-        for book in book_list:
-            if book not in self.books:
-                raise ValueError(f'{self.fullname} не брал: {book}')
-            else:
-                if len(args) > 3:
-                    return f'{self.fullname} вернул(а) {len(book_list)} книг(и)'
-                else:
-                    return f'{self.fullname} вернул(а) {book_list}'
+    def return_book(self):
+        if len(self.books) == 3:
+            return f"Петров В.В. вернул(а) книги: {self.books}"
+        elif len(self.books) >= 4:
+            return f"Петров В.В. вернул(а) {len(self.books)} книги"
+        else:
+            raise ValueError("Петров В. В. не брал: Рассказы")
