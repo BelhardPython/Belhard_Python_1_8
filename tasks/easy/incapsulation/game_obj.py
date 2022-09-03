@@ -27,8 +27,7 @@ class GameObject:
         if isinstance(value, int):
             self.__x = value
         else:
-            raise ValueError
-
+            raise AttributeError
 
     @property
     def y(self):
@@ -39,7 +38,7 @@ class GameObject:
         if isinstance(value, int):
             self.__y = value
         else:
-            raise ValueError
+            raise AttributeError
 
     def move(self, delta_x, delta_y):
         self.__x += delta_x

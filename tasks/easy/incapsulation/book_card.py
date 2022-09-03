@@ -28,10 +28,10 @@ class BookCard:
 
     @author.setter
     def author(self, value):
-        if isinstance(value, str):
-            self.__author = value
-        else:
+        if not isinstance(value, str):
             raise ValueError
+        else:
+            self.__author = value
 
     @property
     def title(self):
@@ -39,10 +39,10 @@ class BookCard:
 
     @title.setter
     def title(self, value):
-        if isinstance(value, str):
-            self.__title = value
-        else:
+        if not isinstance(value, str):
             raise ValueError
+        else:
+            self.__title = value
 
     @property
     def year(self):
@@ -50,10 +50,10 @@ class BookCard:
 
     @year.setter
     def year(self, value):
-        if isinstance(value, int) and 0 < value < CURRENT_YEAR:
-            self.__year = value
-        else:
+        if not isinstance(value, int) and 0 > value > CURRENT_YEAR:
             raise ValueError
+        else:
+            self.__year = value
 
     def __init__(self, author, title, year):
         self.__author = author

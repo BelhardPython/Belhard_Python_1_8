@@ -29,8 +29,8 @@
 
 
 class Person:
-    fullname: str
-    phone: str
+    fullname: str  # ФИО
+    phone: str  # номер телефона
 
     def __init__(self, fullname, phone):
         self.fullname = fullname
@@ -41,21 +41,27 @@ class LibraryReader(Person):
     uid: int
     books: set
 
-    def __init__(self, fullname, phone, uid):
+    def __init__(self, fullname, phone, uid, books=None):
         super().__init__(fullname, phone)
+        if books is None:
+            books = set()
         self.uid = uid
-        self.books = set()
+        self.books = books
 
-    def take_books(self):
+    def take_books(self, *args):
+        sorted_args = ', '.join(sorted(args))
+        self.books.update(args)
         if len(self.books) <= 3:
-            return f"Петров В.В. взял(а) книги: {self.books}"
+            return f"{self.fullname} взял(а) книги: {sorted_args}"
         else:
-            return f"Петров В.В. взял(а) {len(self.books)} книги"
+            return f"{self.fullname} взял(а) 4 книги"
 
-    def return_book(self):
-        if len(self.books) == 3:
-            return f"Петров В.В. вернул(а) книги: {self.books}"
-        elif len(self.books) >= 4:
-            return f"Петров В.В. вернул(а) {len(self.books)} книги"
+    def return_book(self, *args):
+        sorted_args = ', '.join(sorted(args))
+        if not self.books.issuperset(set(args)):
+            raise ValueError #(f"{self.fullname} не брал: {set(args).difference(self.books)}")
         else:
-            raise ValueError("Петров В. В. не брал: Рассказы")
+            if len(set(args)) <= 3:
+                return f"{self.fullname} вернул(а) книги:{sorted_args}"
+            elif len(set(args)) > 3:
+                return f"{self.fullname} вернул(а) 4 книги"

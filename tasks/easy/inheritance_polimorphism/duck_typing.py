@@ -25,9 +25,11 @@ class AmericanPerson:
     def i_love_science(self):
         return f"I love science"
 
+
 class RussianPerson:
     def i_love_science(self):
         return f"Я люблю науку"
+
 
 class GermanyPerson:
     def i_love_science(self):

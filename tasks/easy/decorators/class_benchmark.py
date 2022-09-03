@@ -15,36 +15,46 @@
 Время окончания: {end_time}
 Всего затрачено времени на выполнение: {end_time - start_time}
 """
+
 import time
+
+start_time = time.time()
+end_time = time.time()
+difference = end_time - start_time
 
 
 def def_benchmark(func):
     def wrapper(*args, **kwargs):
-        start_time = time.time()
-        print(f'Выполняем {func.__name__} с args: {args} и kwargs: {kwargs} \n Время начала: {start_time}')
-        result = func
-        end_time = time.time()
-        print(f'Выполнено {func.__name__} \n Время окончания: {end_time} \n Всего затрачено времени на выполнение: {end_time - start_time}')
+        print(f"Выполняем {func.__name__} с args: {args} и kwargs: {kwargs}\n"
+              f"Время начала: {start_time}")
+        result = func(*args, **kwargs)
+        print(f"Выполнено {func.__name__}\n"
+              f"Время окончания: {end_time}\n"
+              f"Всего затрачено времени на выполнение: {difference}")
         return result
     return wrapper
 
 
 def class_benchmark(cls):
-    call_attr = {k: v for k, v in cls.__dict__.items() if callable(v)}
-    for name, val in call_attr.items():
-        decorated = def_benchmark(val)
-        setattr(cls, name, decorated)
+    class_atr = {k: v for k, v in cls.__dict__.items() if k.find('_')}
+    for name, val in class_atr.items():
+        decor_metod = def_benchmark(val)
+        setattr(cls, name, decor_metod)
     return cls
 
+
 @class_benchmark
-class A:
-    def __init__(self):
-        pass
+class Sum:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-    def pr_say(self):
-        print('Say Hi')
-        return None
+    def get_sum(self):
+        return print(self.a + self.b)
+
+    def __repr__(self):  # Без этого метода в аргументах выводит не их значение, а ссылку на функцию
+        return f"{self.a},{self.b}"
 
 
-obj = A
-obj.pr_say()
+sum_obj = Sum(2, 3)
+sum_obj.get_sum()
