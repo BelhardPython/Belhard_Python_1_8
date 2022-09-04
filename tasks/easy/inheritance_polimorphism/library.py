@@ -57,11 +57,13 @@ class LibraryReader(Person):
             return f"{self.fullname} взял(а) 4 книги"
 
     def return_book(self, *args):
-        sorted_args = ', '.join(sorted(args))
-        if not self.books.issuperset(set(args)):
-            raise ValueError #(f"{self.fullname} не брал: {set(args).difference(self.books)}")
-        else:
-            if len(set(args)) <= 3:
-                return f"{self.fullname} вернул(а) книги:{sorted_args}"
-            elif len(set(args)) > 3:
+        __not_return_book = set(args).difference(self.books)
+        if not __not_return_book:
+            if len(args) < 4:
+                self.books = self.books.difference(set(args))
+                return f"{self.fullname} вернул(а) книги: {', '.join(sorted(args))}"
+            else:
+                self.books = self.books.difference(set(args))
                 return f"{self.fullname} вернул(а) 4 книги"
+        else:
+            raise ValueError(f"{self.fullname} не брал: {', '.join(sorted(__not_return_book))}")

@@ -18,62 +18,62 @@ CURRENT_YEAR = date.today().year
 
 
 class BookCard:
-    __author: str
-    __title: str
-    __year: int
+    author: str
+    title: str
+    year: int
 
     @property
     def author(self):
-        return self.__author
+        return self.author
 
     @author.setter
     def author(self, value):
-        if not isinstance(value, str):
-            raise ValueError
+        if isinstance(value, str):
+            self.author = value
         else:
-            self.__author = value
+            raise ValueError
 
     @property
     def title(self):
-        return self.__title
+        return self.title
 
     @title.setter
     def title(self, value):
-        if not isinstance(value, str):
-            raise ValueError
+        if isinstance(value, str):
+            self.title = value
         else:
-            self.__title = value
+            raise ValueError
 
     @property
     def year(self):
-        return self.__year
+        return self.year
 
     @year.setter
-    def year(self, value):
-        if not isinstance(value, int) and 0 > value > CURRENT_YEAR:
-            raise ValueError
+    def year(self, year):
+        if isinstance(year, int) and (0 < year <= CURRENT_YEAR):
+            self.year = year
         else:
-            self.__year = value
+            raise ValueError
 
     def __init__(self, author, title, year):
-        self.__author = author
-        self.__title = title
-        self.__year = year
+        self.author = author
+        self.title = title
+        self.year = year
 
     def __eq__(self, other):
-        return self.__year == other.__year
+        return self.year == other.year
 
     def __ne__(self, other):
-        return self.__year != other.__year
+        return self.year != other.year
 
     def __ge__(self, other):
-        return self.__year >= other.__year
+        return self.year >= other.year
 
     def __le__(self, other):
-        return self.__year <= other.__year
+        return self.year <= other.year
 
     def __gt__(self, other):
-        return self.__year > other.__year
+        return self.year > other.year
 
     def __lt__(self, other):
-        return self.__year < other.__year
+        return self.year < other.year

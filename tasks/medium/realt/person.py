@@ -24,4 +24,4 @@ class Person:
             self.money -= house.cost
             self.realty.append(house)
         else:
-            print('Not enough money'
+            print('Not enough money')

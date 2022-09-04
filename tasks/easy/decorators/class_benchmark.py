@@ -36,10 +36,14 @@ def def_benchmark(func):
 
 
 def class_benchmark(cls):
-    class_atr = {k: v for k, v in cls.__dict__.items() if k.find('_')}
-    for name, val in class_atr.items():
-        decor_metod = def_benchmark(val)
-        setattr(cls, name, decor_metod)
+    functions = {
+        name: value for name, value
+        in cls.dict.items()
+        if callable(value) and not name.startswith("_")
+    }
+    for name, func in functions.items():
+        func_with_decor = def_benchmark(func)
+        setattr(cls, name, func_with_decor)
     return cls
 
 

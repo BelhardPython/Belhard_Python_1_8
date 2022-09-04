@@ -14,31 +14,17 @@ class GameObject:
     __x: int
     __y: int
 
-    def __init__(self, x, y):
-        self.__x = x
-        self.__y = y
+    def __init__(self, __x, __y):
+        self.__x = __x
+        self.__y = __y
 
     @property
     def x(self):
         return self.__x
 
-    @x.setter
-    def x(self, value):
-        if isinstance(value, int):
-            self.__x = value
-        else:
-            raise AttributeError
-
     @property
     def y(self):
         return self.__y
-
-    @y.setter
-    def y(self, value):
-        if isinstance(value, int):
-            self.__y = value
-        else:
-            raise AttributeError
 
     def move(self, delta_x, delta_y):
         self.__x += delta_x
